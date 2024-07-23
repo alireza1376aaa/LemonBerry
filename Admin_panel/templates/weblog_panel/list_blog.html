@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap4-toggle.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin_style.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+
+
+    <title>List Blog All</title>
+</head>
+<body>
+<div class="content d-flex justify-content-center align-items-center flex-column position-absolute site-top-pos">
+    <div class="w-100">
+        <div class="row home_icon homeandback w-75 sticky-top pt-5 ">
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative mr-4">
+                <a href="{% url 'weblog_admin' %}"><img id="back_selector" class="avatar-img rounded-circle"
+                                                        src="{% static 'admin/img/back.png' %}"/></a>
+            </div>
+
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative">
+                <a href="{% url 'adminpanel' %}"><img id="home_selector" class="avatar-img rounded-circle"
+                                                      src="{% static 'admin/img/home1.png' %}"/></a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <form class="row d-flex h-100 w-75 align-items-center overflow-auto pt-5 mt-5 justify-content-center" method="get"
+          action="{% url 'sh_ac_bl' %}">
+        <input name="path_url" type="hidden" value="{{ request.path }}">
+        <span> <h1 class="display-1 text-secondary header mb-5">List All Blog </h1> </span>
+        <table class="table table-striped table-hover table-responsive-sm text-center">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Writer</th>
+                <th scope="col">date</th>
+                <th scope="col">Active/Disabel</th>
+                <th scope="col">deleted</th>
+                <th scope="col">
+                    <a class="filter_rate_web ">Rate<img src="{% static 'admin/img/filter.png' %}" width="15px"></a>
+                    <a onclick="load_rate()" class="ml-2 filter_rate_web "><img src="{% static 'admin/img/color_rate.png' %}" width="15px"></a>
+                </th>
+                <th scope="col">Visited</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for blogs in blog %}
+                <input name="blog_id" type="hidden" value="{{ blogs.id }}">
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ blogs.title | truncatewords:5 }}</td>
+                    <td>{{ blogs.auter.get_full_name }}</td>
+                    <td>{{ blogs.date|date:'Y-m-d' }}</td>
+                    <td><input name="short_active" value="{{ blogs.id }}" {% if blogs.is_active %}checked{% endif %} type="checkbox" data-toggle="toggle"
+                               data-onstyle="success" data-width="100"></td>
+                    <td><input name="short_delete" value="{{ blogs.id }}" {% if blogs.is_delete %}checked{% endif %} type="checkbox" data-toggle="toggle"
+                               data-onstyle="danger"></td>
+                    <td><span onclick="color({{ blogs.satisfaction_percentage }},{{ blogs.id }})" id="number_rate{{ blogs.id }}" class="number_rate">{{ blogs.satisfaction_percentage }}%</span></td>
+
+                    <td><a href="{{ blogs.get_absolut_url_admin }}" class="btn btn-info">Visit Blog</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="w-50 mt-5 mb-5">
+            <button class="btn btn-success w-100" type="submit">Chane all blog you select</button>
+        </div>
+    </form>
+</div>
+
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'admin/js/bootstrap4-toggle.js' %}"></script>
+<script src="{% static 'admin/js/custom.js' %}"></script>
+
+</body>
+</html>

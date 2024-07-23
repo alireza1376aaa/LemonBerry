@@ -1,0 +1,69 @@
+{% extends 'Main/main_user.html' %}
+{% load poll_extras %}
+{% block title %}
+    edit profile
+{% endblock %}
+
+{% block main %}
+    <section class="ftco-section contact-section bg-dark">
+        <div class="container-xl px-4 mt-4">
+            <!-- Account page navigation-->
+            <nav class="nav nav-borders">
+                <a class="nav-link ms-0" href="{% url 'Edit_Profile' %}">Profile</a>
+                <a class="nav-link active ms-0" href="">Wait</a>
+                <a class="nav-link  ms-0" href="{% url 'Ticket_pro' %}" >Tickets</a>
+
+
+            </nav>
+            <hr class="mt-0 mb-4">
+            <div class="row justify-content-center">
+
+                <div class="col-md-9 bg-light rounded">
+                    <!-- Account details card-->
+                    <div class="card mb-4 margin_table">
+                        <div class="card-header">List Your Blog</div>
+                        <table class="w-100 table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Rate</th>
+                                <th scope="col">Position</th>
+                                <th scope="col">Visited</th>
+                                <th scope="col">Edit</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for blogs in blog %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ blogs.title | truncatewords:5 }}</td>
+                                    <td>{{ blogs.date|date:'Y-m-d' }}</td>
+                                    <td><span class="">{{ blogs.satisfaction_percentage }}%</span></td>
+
+                                    <td> {% if blogs.is_active %}
+                                        <p class="publish_blog">Published</p>
+                                        {% elif blogs.is_delete %}
+                                        <p class="reject_blog">Reject</p>
+                                        {% else %}
+                                        <p class="wait_blog">Awaiting</p>
+                                        {% endif %}
+
+                                    </td>
+
+                                    <td><a href="{{ blogs.get_absolut_url }}" class="btn btn-visit_blog">Visit Blog</a>
+                                    </td>
+                                    <td><a href="{{ blogs.edit_blog }}" class="btn btn-primary">Edit Blog</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

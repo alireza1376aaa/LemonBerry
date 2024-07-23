@@ -1,0 +1,76 @@
+<div class="d-flex">
+    <h3 class="mb-2 pr-3">{{ count_comment }} Comments</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+         class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+        <path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+    </svg>
+
+</div>
+<button id="colspan_comment" class="navbar-toggler card-header" type="button" data-toggle="collapse"
+        data-target="#comment-nav"
+        aria-controls="comment-nav" aria-expanded="false" aria-label="Toggle navigation">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+         class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+         class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+    </svg>
+</button>
+<div class="collapse show navbar-collapse" id="comment-nav">
+    <ul class="comment-list">
+        {% for artcomment in comment %}
+            <li class="comment">
+                <div class="vcard bio">
+                    <img src="{{ artcomment.user.image_pro.url }}" alt="Image placeholder">
+                </div>
+                <div class="comment-body" id="box_commenr{{ artcomment.id }}">
+                    <h3>{{ artcomment.user.get_full_name }}</h3>
+                    <div class="meta mb-3">{{ artcomment.create_date.date }}</div>
+                    <p>{{ artcomment.text }}</p>
+                    <p><a onclick="parentid({{ artcomment.id }})" class="reply">Reply</a></p>
+                </div>
+
+                {% for artcomment_child in artcomment.web_log_comment_set.all %}
+                    <ul class="children">
+                        <li class="comment">
+                            <div class="vcard bio">
+                                <img src="{{ artcomment_child.user.image_pro.url }}"
+                                     alt="Image placeholder">
+                            </div>
+                            <div class="comment-body" id="box_commenr{{ artcomment.id }}">
+                                <h3>{{ artcomment_child.user.get_full_name }}</h3>
+                                <div class="meta mb-3">{{ artcomment_child.create_date.date }}</div>
+                                <p>{{ artcomment_child.text }}</p>
+                                <p><a onclick="parentid({{ artcomment_child.id }})"
+                                      class="reply">Reply</a>
+                                </p>
+                            </div>
+                            {% for artcomment_child_child in artcomment_child.web_log_comment_set.all %}
+                                <ul class="children">
+                                    <li class="comment">
+                                        <div class="vcard bio">
+                                            <img src="{{ artcomment_child_child.user.image_pro.url }}"
+                                                 alt="Image placeholder">
+                                        </div>
+                                        <div class="comment-body"
+                                             id="box_commenr{{ artcomment.id }}">
+                                            <h3>{{ artcomment_child_child.user.get_full_name }}</h3>
+                                            <div class="meta mb-3">{{ artcomment_child_child.create_date.date }}</div>
+                                            <p>{{ artcomment_child_child.text }}</p>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            {% endfor %}
+
+                        </li>
+                    </ul>
+                {% endfor %}
+
+            </li>
+
+        {% endfor %}
+    </ul>
+</div>

@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin_style.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'admin/js/custom.js' %}"></script>
+
+
+    <title>Site Setting</title>
+</head>
+<body>
+    <div class="w-100 content d-flex justify-content-center align-items-center flex-column position-absolute site-top-pos">
+       <div class="w-100">
+        <div class="row home_icon homeandback w-75 sticky-top pt-5 ">
+          <div class="avatar-sm d-flex flex-column align-items-center position-relative mr-4 ">
+              <a href="{% url 'setting_panel' %}"><img id="back_selector" class="avatar-img rounded-circle" src="{% static 'admin/img/back.png' %}" /></a>
+          </div>
+
+           <div class="avatar-sm d-flex flex-column align-items-center position-relative">
+            <a href="{% url 'adminpanel' %}"><img id="home_selector" class="avatar-img rounded-circle"
+                                                  src="{% static 'admin/img/home1.png' %}"/></a>
+            <label for="home_selector"
+                   class="text-center font-weight-bold text-secondary setting_label_tag">Home</label>
+
+            </div>
+      </div>
+      
+       </div>
+        
+        <div class="row d-flex h-100 w-75 align-items-center  pt-5 mt-5 mb-5 pl-3 justify-content-center">
+            <span class="" > <h1 class="col-12 display-1 text-secondary header mb-5 w-100 mt-5 ">Site Setting</h1> </span><br>
+            <div class="col-12">
+              <form method="post" enctype="multipart/form-data" class="w-100">
+                  {% csrf_token %}
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input placeholder="{{ main_page.Email }}" name="email" type="email" class="form-control" id="inputEmail4">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputPhone">Phone</label>
+                    <input placeholder="{{ main_page.Phone }}" name="phone" type="text" class="form-control" id="inputPhone">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputAddress">Address</label>
+                  <input placeholder="{{ main_page.Address }}" name="address" type="text" class="form-control" id="inputAddress">
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputWebsite">Website</label>
+                    <input placeholder="{{ main_page.Website }}" name="website" type="text" class="form-control" id="inputWebsite">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress_map">Address in map</label>
+                    <input placeholder="{{ main_page.Address_map }}" name="googleaddress" type="text" class="form-control" id="inputAddress_map">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="wellcome">text wellcome in firstpage</label>
+                  <input placeholder="{{ main_page.text_wellcome_firstpage }}" name="biginertext" type="text" class="form-control" id="wellcome">
+                </div>
+                <div class="form-group">
+                  <label for="about">text about website</label>
+                  <textarea placeholder="{{ main_page.about_website }}" name="about_web" id="about" class="form-control clore" cols="30" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="Rule">Text for Rule</label>
+                  <input placeholder="{{ main_page.text_for_rule }}" name="rule" type="text" class="form-control clore" id="Rule">
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="instagram">link_instagram </label>
+                    <input placeholder="{{ main_page.link_instagram }}" name="instagram" type="text" class="form-control clore" id="instagram">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="telegram">link_telegram</label>
+                    <input placeholder="{{ main_page.link_telegram }}" name="telegram" type="text" class="form-control clore" id="telegram">
+  
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="link_x">link_x</label>
+                    <input placeholder="{{ main_page.link_x }}" name="twitter" type="text" class="form-control clore" id="link_x">
+                  </div>
+                </div>
+                <!-- //////////////////////////////// -->
+                  <div class="card mb-3 mt-4 w-100">
+                    <label for="input_file_img" class="file_cart_photo" id="label_input_file_img"></label>
+                    <input name="logo_img" type="file" id="input_file_img" onchange="showMyImage(this,'#label_input_file_img','#input_file_img')">
+                    <img src="{% if main_page.Logo_web %}{{ main_page.Logo_web.url }}{% else %}{% static 'admin/img/bgpage.png' %}{% endif %}" class="card-img-top logo cust" alt="Logo">
+                    <div class="card-body">
+                      <h5 class="card-title">Logo Company</h5>
+                    </div>
+                  </div>
+                <!-- //////////////////////////////// -->
+                
+                <button type="submit" class="btn btn-info col-12 mt-5 mb-5">Send</button>
+              </form>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+</body>
+</html>

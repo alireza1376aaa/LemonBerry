@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <script src="{% static 'css/style.css' %}"></script>
+
+    <title>Admin Panel</title>
+</head>
+<body>
+<div class="content d-flex justify-content-center align-items-center flex-column position-absolute site-top-pos">
+    <div class="row home_icon homeandback w-75 sticky-top pt-5 ">
+        <div class="avatar-sm d-flex flex-column align-items-center position-relative mr-4">
+            <a href="{{ request.META.HTTP_REFERER }}"><img id="back_selector" class="avatar-img rounded-circle"
+                                                           src="{% static 'admin/img/back.png' %}"/></a>
+        </div>
+
+        <div class="avatar-sm d-flex flex-column align-items-center position-relative">
+            <a href="{% url 'adminpanel' %}"><img id="home_selector" class="avatar-img rounded-circle"
+                                                  src="{% static 'admin/img/home1.png' %}"/></a>
+        </div>
+
+    </div>
+
+    <div class="row d-flex h-100 w-100 align-items-center overflow-auto pt-5 mt-5">
+        <section class="ftco-section ftco-degree-bg col-12">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <!-- ///////////////////////////////////////////////////////// -->
+                        <div class="main_data">
+                            <input disabled name="title_main" value="{{ blog.title }}" type="text" class="main_title "
+                                   placeholder="Main Title ">
+                            <div class="data_story">
+                                <div class="sort_disc">
+                                    <textarea disabled class="sh_dis" name="short_discription" id="" cols="30" rows="10"
+                                              placeholder="Write a summary of your story">{{ blog.shortdescription }}</textarea>
+                                </div>
+                                <div class="data_select_box">
+                                    <div class="select_cat">
+                                        <label class="form-label mr-4" for="category">Select Category :</label>
+                                        <select class="w-75 " aria-label="Large select example" name="category"
+                                                id="category">
+                                            {% for category in blog.category_web_model.all %}
+                                                <option id="" value="{{ category }}" disabled selected
+                                                        hidden>{{ category }}</option>
+                                            {% endfor %}
+
+                                        </select>
+
+                                    </div>
+                                    <hr>
+                                    <div class="select_genre">
+                                        <label class="form-label mr-4" for="genre">Select Genre :</label>
+                                        <select class="w-75 " aria-label="Large select example" name="genre" id="genre">
+                                            <option id="" value="" disabled selected
+                                                    hidden>{{ blog.gender.title }}</option>
+                                        </select>
+
+                                    </div>
+                                    <hr>
+                                    <div class="add_tag">
+                                        <h3> Tag</h3>
+
+                                        <div class="tagcloud">
+                                            {% for tag_name in blog.tag.all %}
+                                                <a class="tag-cloud-link">{{ tag_name }}</a>
+                                            {% endfor %}
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- ////////////////////////////////////////////////////////////// -->
+                        <p class="mb-5">
+
+                            <img class="img-fluid smal_img_s" src="{{ blog.main_photo.url }}" alt="">
+                        </p>
+                        <input disabled value="{{ blog.main_title }}" name="title_main" type="text" class="main_title "
+                               placeholder="Add Title of Story">
+                        <textarea disabled name="main_text_story" class="text_story_" cols="30" rows="20"
+                                  placeholder="Add Your Story">{{ blog.discription }}</textarea>
+                        <p class="mb-5">
+                            {% if blog.gallery.image1 %}
+
+                            <img class="img-fluid smal_img_s" src="{{ blog.gallery.image1.url }}" alt="">
+                            {% endif %}
+                        </p>
+
+                        <!-- ///////////////////////////////////////////////// -->
+                        <hr>
+                        <h2 class="mb-3 mt-5 text-center">Section 2 </h2>
+                        <input disabled value="{{ blog.extra_discription.title_seasionone }}" name="title_section_2"
+                               type="text" class="main_title " placeholder="Add Title Section 2">
+
+                        <textarea disabled name="section_2_text_story" class="text_story_" cols="30" rows="20"
+                                  placeholder="Continue Your Story">{{ blog.extra_discription.discription_seasionone }}</textarea>
+                        <p class="mb-5">
+                            {% if blog.gallery.image2 %}
+
+                                <img class="img-fluid smal_img_s" src="{{ blog.gallery.image2.url }}" alt="">
+                            {% endif %}
+                        </p>
+
+                        <!-- ///////////////////////////////////////////////// -->
+
+
+                        <!-- ///////////////////////////////////////////////// -->
+                        <hr>
+                        <h2 class="mb-3 mt-5 text-center">Section 3 </h2>
+                        <input disabled value="{{ blog.extra_discription.title_seasiontwo }}" name="title_section_3"
+                               type="text" class="main_title " placeholder="Add Title Section 3">
+
+                        <textarea disabled name="section_3_text_story" class="text_story_" cols="30" rows="20"
+                                  placeholder="Continue Your Story">{{ blog.extra_discription.discription_seasiontwo }}</textarea>
+                        <p class="mb-5">
+                            {% if blog.gallery.image3 %}
+
+                                <img class="img-fluid smal_img_s" src="{{ blog.gallery.image3.url }}" alt="">
+                            {% endif %}
+                        </p>
+
+                        <!-- ///////////////////////////////////////////////// -->
+
+
+                        <!-- ///////////////////////////////////////////////// -->
+                        <hr>
+                        <h2 class="mb-3 mt-5 text-center">Section 4 </h2>
+                        <input disabled value="{{ blog.extra_discription.title_seasiontree }}" name="title_section_4"
+                               type="text" class="main_title " placeholder="Add Title Section 4">
+
+                        <textarea disabled name="section_4_text_story" class="text_story_" cols="30" rows="20"
+                                  placeholder="Continue Your Story">{{ blog.extra_discription.discription_seasiontwo }}</textarea>
+                        <p class="mb-5">
+                            {% if blog.gallery.image4 %}
+
+                                <img class="smal_img_s" src="{{ blog.gallery.image4.url }}" alt="s">
+                            {% endif %}
+                        </p>
+
+                        <!-- ///////////////////////////////////////////////// -->
+
+                    </div>
+                    <div class="col-12 row">
+                        <div class="col-6 d-flex justify-content-center">
+                            <form action="{% url 'act_deact' %}" method="get">
+                                {% if blog.is_active %}
+                                    <input name="activate_id" type="hidden" value="{{ blog.id }}">
+                                    <input name="activate_val" type="hidden" value="False">
+                                    <button type="submit" class="button_warning">DeActive Blog</button>
+                                {% else %}
+                                    <input name="activate_id" type="hidden" value="{{ blog.id }}">
+                                    <input name="activate_val" type="hidden" value="True">
+                                    <button type="submit" class="button_success">Active Blog</button>
+                                {% endif %}
+                            </form>
+                        </div>
+                        <div class="col-6 d-flex justify-content-center">
+                            <button type="button" class=" button_danger">Delet Blog</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<!-- <script src="js/bootstrap.min.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,311 @@
+{% extends 'base.html' %}
+{% load poll_extras %}
+{% load static %}
+{% block title %}
+    detail weblog
+{% endblock %}
+
+{% block slider %}
+    <section class="hero-wrap hero-wrap-2 js-fullheight"
+             style="background-image: url('{{ web_log.main_photo.url }}');"
+             data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate pb-5 text-center">
+                    <h1 class="mb-3 bread">{{ web_log.title|truncatechars:15 }}</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i
+                            class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a
+                            href="{% url 'list_weblog' category='weball' %}">Blog <i
+                            class="ion-ios-arrow-forward"></i></a></span> <span>{{ web_log.title }} <i
+                            class="ion-ios-arrow-forward"></i></span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block main %}
+    <section class="ftco-section ftco-degree-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 ftco-animate">
+                    <div id="context">
+                        <p class="mb-5">
+                            <img src="{{ web_log.main_photo.url }}" alt class="img-fluid smal_img_s">
+                        </p>
+                        <div id="context_1">
+                            <h1 class="mb-3">{{ web_log.title }}</h1>
+                            <h2 class="mb-3">{{ web_log.main_title }}</h2>
+
+                            <p>{{ web_log.discription }}</p>
+                        </div>
+
+                        <p class="mb-5">
+                            {% if web_log.gallery != None %}
+                                <img src='{{ web_log.gallery.image1.url }}' alt='{{ web_log.title }}'
+                                     class="img-fluid smal_img_s">
+                            {% endif %}
+                        </p>
+
+                        {% if web_log.extra_discription != None %}
+                            {% if web_log.extra_discription.title_seasionone|length > 1  %}
+                                <div id="context_2">
+                                    <h2 class="mb-3 mt-5">#2. {{ web_log.extra_discription.title_seasionone }}</h2>
+                                    <p>{{ web_log.extra_discription.discription_seasionone }}</p>
+                                </div>
+
+                                <p class="mb-5">
+                                    {% if web_log.gallery.image2 %}
+                                        <img src="{{ web_log.gallery.image2.url }}" alt="" class="img-fluid smal_img_s">
+                                    {% endif %}
+                                </p>
+
+                            {% endif %}
+                            {% if web_log.extra_discription.title_seasiontwo|length > 1  %}
+                                <div id="context_3">
+                                    <h2 class="mb-3 mt-5">#3. {{ web_log.extra_discription.title_seasiontwo }}</h2>
+                                    <p>{{ web_log.extra_discription.discription_seasiontwo }}</p>
+                                </div>
+
+                                <p class="mb-5">
+                                    {% if web_log.gallery.image3 %}
+                                        <img src="{{ web_log.gallery.image3.url }}" alt="" class="img-fluid smal_img_s">
+                                    {% endif %}
+                                </p>
+
+                            {% endif %}
+                            {% if web_log.extra_discription.title_seasiontree|length > 1  %}
+                                <div id="context_4">
+                                    <h2 class="mb-3 mt-5">#4. {{ web_log.extra_discription.title_seasiontree }}</h2>
+                                    <p>{{ web_log.extra_discription.discription_seasiontree }}</p>
+                                </div>
+
+                                <p class="mb-5">
+
+                                {% if web_log.gallery.image4 %}
+                                    <img src="{{ web_log.gallery.image4.url }}" alt="cx" class="img-fluid smal_img_s">
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="about-author d-flex p-4 bg-light flex-al-column">
+                        <div class="bio mr-5">
+                            <img src="{{ web_log.auter.image_pro.url }}" alt="Image placeholder"
+                                 class="img-fluid mb-4 smal_img_pro user_image_style">
+                        </div>
+                        <div class="desc">
+                            <h3>{{ web_log.auter.get_full_name }}</h3>
+                            {% if web_log.auter.about_user %}
+                                <p>{{ web_log.auter.about_user|linebreaks }}</p>
+                            {% endif %}
+                            <p>{{ web_log.auter.date_birth }}</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-5 mt-5" id="comment_box">
+                        <div class="d-flex">
+                            <h3 class="mb-2 pr-3">{{ count_comment }} Comments</h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                 class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+                                <path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                            </svg>
+
+                        </div>
+                        <button id="colspan_comment" class="navbar-toggler card-header" type="button"
+                                data-toggle="collapse"
+                                data-target="#comment-nav"
+                                aria-controls="comment-nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                            </svg>
+                        </button>
+                        <div class="collapse show navbar-collapse" id="comment-nav">
+                            <ul class="comment-list">
+                                {% for artcomment in comment %}
+                                    <li class="comment">
+                                        <div class="vcard bio">
+                                            <img src="{{ artcomment.user.image_pro.url }}" alt="Image placeholder">
+                                        </div>
+                                        <div class="comment-body" id="box_commenr{{ artcomment.id }}">
+                                            <h3>{{ artcomment.user.get_full_name }}</h3>
+                                            <div class="meta mb-3">{{ artcomment.create_date.date }}</div>
+                                            <p>{{ artcomment.text }}</p>
+                                            <p><a onclick="parentid({{ artcomment.id }})" class="reply">Reply</a></p>
+                                        </div>
+
+                                        {% for artcomment_child in artcomment.web_log_comment_set.all %}
+                                            <ul class="children">
+                                                <li class="comment">
+                                                    <div class="vcard bio">
+                                                        <img src="{{ artcomment_child.user.image_pro.url }}"
+                                                             alt="Image placeholder" >
+                                                    </div>
+                                                    <div class="comment-body" id="box_commenr{{ artcomment.id }}">
+                                                        <h3>{{ artcomment_child.user.get_full_name }}</h3>
+                                                        <div class="meta mb-3">{{ artcomment_child.create_date.date }}</div>
+                                                        <p>{{ artcomment_child.text }}</p>
+                                                        <p><a onclick="parentid({{ artcomment_child.id }})"
+                                                              class="reply">Reply</a>
+                                                        </p>
+                                                    </div>
+                                                    {% for artcomment_child_child in artcomment_child.web_log_comment_set.all %}
+                                                        <ul class="children">
+                                                            <li class="comment">
+                                                                <div class="vcard bio">
+                                                                    <img src="{{ artcomment_child_child.user.image_pro.url }}"
+                                                                         alt="Image placeholder">
+                                                                </div>
+                                                                <div class="comment-body"
+                                                                     id="box_commenr{{ artcomment.id }}">
+                                                                    <h3>{{ artcomment_child_child.user.get_full_name }}</h3>
+                                                                    <div class="meta mb-3">{{ artcomment_child_child.create_date.date }}</div>
+                                                                    <p>{{ artcomment_child_child.text }}</p>
+                                                                </div>
+
+                                                            </li>
+                                                        </ul>
+                                                    {% endfor %}
+
+                                                </li>
+                                            </ul>
+                                        {% endfor %}
+
+                                    </li>
+
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    {% if request.user.is_authenticated %}
+                        <div class="comment-form-wrap pt-5" id="addcomment">
+                            <h3 class="mb-5">Leave a comment</h3>
+                            <form action="#" class="p-5 bg-light">
+                                <div class="form-group">
+                                    <label for="message">Message</label>
+                                    <textarea name id="message" cols="30" rows="10" class="form-control"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type='hidden' value="{{ web_log.id }}" id="idofweb">
+                                    <input type='hidden' value="" id="idofparentweb">
+                                    <a onclick="comment()" class="btn py-3 px-4 btn-primary">Post Comment</a>
+                                </div>
+                            </form>
+                        </div>
+
+                    {% else %}
+                        <span class="bg-dark alert alert-warning d-flex justify-content-center ">
+                              <a href="{% url 'log_in' %}">You must Log In first to comment</a>
+                            </span>
+                    {% endif %}
+                </div>
+
+                <div class="col-lg-4 sidebar pl-lg-5 ftco-animate">
+                    <div class="sidebar-box">
+                        <form action="#" class="search-form">
+                            <div class="form-group">
+                                <span class="icon icon-search"></span>
+                                <input onkeyup="searchtext()" id="inputSearch" type="text" class="form-control"
+                                       placeholder="Type a keyword and hit enter">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="sidebar-box ftco-animate">
+                        <div class="categories">
+                            <h3>Categories</h3>
+                            {% for cat in web_log.category_web_model.all %}
+                                <li><a href="{% url 'list_weblog' category=cat.url_title %}"> {{ cat }} <span
+                                        class="ion-ios-arrow-forward"></span></a></li>
+                            {% endfor %}
+                            <h3>Gender</h3>
+                            <li>
+                                <a href="{% url 'list_weblog' category=web_log.gender.title %}">{{ web_log.gender.url_title }}
+                                    <span class="ion-ios-arrow-forward"></span></a>
+                            </li>
+
+                        </div>
+                    </div>
+                    <div class="sidebar-box ftco-animate">
+                        <h3>Recent Blog</h3>
+                        {% for my_suggest in suggest %}
+                            {% if my_suggest.title == web_log.title %}
+                            {% else %}
+                                <div class="block-21 mb-4 d-flex">
+                                    <a class="blog-img mr-4"
+                                       style="background-image: url({{ my_suggest.main_photo.url }});"></a>
+                                    <div class="text">
+                                        <h3 class="heading"><a
+                                                href="{{ my_suggest.get_absolut_url }}">{{ my_suggest.title }}</a></h3>
+                                        <div class="meta">
+                                            <div><a href="{{ my_suggest.get_absolut_url }}"><span
+                                                    class="icon-calendar"></span> {{ my_suggest.date }}
+                                            </a></div>
+                                            <div><a href="{{ my_suggest.get_absolut_url }}"><span
+                                                    class="icon-person"></span> {{ my_suggest.auter.get_full_name }}</a>
+                                            </div>
+                                            <div><a href="{{ my_suggest.get_absolut_url }}"><span
+                                                    class="icon-chat"></span> {{ count_comment }}</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+                    <div class="sidebar-box ftco-animate">
+                        <h3>Tag Cloud</h3>
+                        <div class="tagcloud">
+                            {% for tag in web_log.tag.all %}
+                                <a href="{% url 'list_weblog' category=tag.url_title %}"
+                                   class="tag-cloud-link">{{ tag }}</a>
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar-box ftco-animate">
+                        <h3>Paragraph</h3>
+                        <p>{{ web_log.shortdescription }}</p>
+                    </div>
+                {% if web_log.is_active %}
+                    <div class="sidebar-box ftco-animate">
+                        <div id="reload_rate_ajax">
+                            <h3>Rate of Article <span id="number_rate" class="number_rate">{{ rate.rate }}%</span></h3>
+                            <h4>The Number of Users Who Rate : <b>{{ rate.count }}</b></h4>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                            <h4>add you Rate</h4>
+                            <form method="get">
+                                <div class="rating" id="showrate">
+                                    <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                                    <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                                    <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                                    <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                                    <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+
+                                </div>
+                            </form>
+                            <a class="btn-rate" onclick="add_score({{ request.user.id }},{{ web_log.id }})">add your
+                                rate</a>
+                            <p id="error_rate_text"></p>
+                        {% endif %}
+
+
+                    </div>
+                {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

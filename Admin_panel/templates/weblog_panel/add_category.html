@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap4-toggle.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin_style.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+
+
+    <title>Admin Panel</title>
+</head>
+<body>
+<div class="content d-flex justify-content-center align-items-center flex-column position-absolute site-top-pos">
+    <div class="w-100">
+        <div class="row home_icon homeandback w-75 sticky-top pt-5 ">
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative mr-4">
+                <a href="{% url 'weblog_admin' %}"><img id="back_selector" class="avatar-img rounded-circle"
+                                                        src="{% static 'admin/img/back.png' %}"/></a>
+            </div>
+
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative">
+                <a href="{% url 'adminpanel' %}"><img id="home_selector" class="avatar-img rounded-circle"
+                                                      src="{% static 'admin/img/home1.png' %}"/></a>
+            </div>
+
+        </div>
+        <div class="row add_icon homeandback w-100 sticky-top pt-5 position-relative">
+            <div class="avatar-sm d-flex flex-column align-items-center position-absolute add_icon_po">
+                <a onclick="toggle_add()"><img id="home_selector" class="avatar-img rounded-circle"
+                                               src="{% static 'admin/img/add.png' %}"></a>
+            </div>
+        </div>
+    </div>
+    <div id="toggle_add_val" class="add_box d-flex justify-content-center">
+        <span class="close_add"><a onclick="toggle_add_close()"><img class="zxc"
+                                                                     src="{% static 'admin/img/close.png' %}" alt=""
+                                                                     width="30px"></a></span>
+        <div class="w-50 d-flex flex-column align-items-center justify-content-center">
+            <h1 class="display-5">Add Category</h1>
+            <form method="get" action="{% url 'add_cat_admin' %}">
+                <div class="form-group">
+                    <label for="Parent_select">Parent select</label>
+                    <select class="form-control" id="Parent_select" name="parent_add_cat">
+                        <option value="None" disabled selected hidden>select Parent category</option>
+                        {% for cats_add in cat.all %}
+                            <option value="{{ cats_add.id }}">{{ cats_add.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Add_Title">Add Title</label>
+                    <input required name="title_cat_add" type="text" class="form-control" id="Add_Title"
+                           placeholder="Add Title">
+                </div>
+
+                <button type="submit" class="btn btn-warning w-100">Add</button>
+            </form>
+        </div>
+    </div>
+    <div class="row d-flex h-100 w-75 align-items-center overflow-auto pt-5 mt-5 justify-content-center">
+        <span> <h1 class="display-1 text-secondary header mb-5"> Category </h1> </span>
+        <table class="table table-striped table-hover table-responsive-sm">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Parent Category</th>
+                <th scope="col">Category Name</th>
+                <th scope="col">Name in Url</th>
+                <th scope="col">Active/Disabel</th>
+                <th scope="col">Editabel</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for cats in cat %}
+                <form method="get" action="{% url 'change_cat_admin' %}">
+                    <input name="id_category" type="hidden" value="{{ cats.id }}">
+
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>
+                            <select class="form-control w-75 custom_input_table" id="Parent_select_deta"
+                                    name="parent_add_cat_detail">
+                                <option value="" selected>{{ cats.parent }}</option>
+                                {% for cats_add in cat.all %}
+                                    {% if cats_add.title != cats.title %}
+                                        <option value="{{ cats_add.id }}">{{ cats_add.title }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+
+                        </td>
+                        <td><input name="title" type="text" class="form-control w-75 custom_input_table"
+                                   placeholder="{{ cats.title }}">
+                        </td>
+                        <td><input disabled name="url_title" type="text" class="form-control w-75 custom_input_table"
+                                   value="{{ cats.url_title }}">
+                        </td>
+                        <td><input id="cat_id_{{ cats.id }}" onchange="short_active_blog({{ cats.id }})"
+                                   data-toggle="toggle" data-onstyle="success" type="checkbox" name="change_cat"
+                                   {% if cats.is_active %}checked{% endif %}></td>
+                        <input name="active_deactive" type="hidden" value="" id="set_act_jq_{{ cats.id }}">
+                        <td>
+                            <button type="submit" class="change_class">Change</button>
+                        </td>
+                    </tr>
+                </form>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'admin/js/bootstrap4-toggle.js' %}"></script>
+<script src="{% static 'admin/js/custom.js' %}"></script>
+</body>
+</html>

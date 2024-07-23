@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load poll_extras %}
+{% load static %}
+{% block title %}
+    list weblog
+{% endblock %}
+
+{% block slider %}
+    <div class="hero-wrap js-fullheight" style="background-image: url('{{sitesetting.list_weblog_img.url}}');"
+         data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row text-center no-gutters slider-text js-fullheight align-items-center justify-content-start"
+                 data-scrollax-parent="true">
+                <div class="col-md-12 ftco-animate">
+                    <h1 class="mb-4 mb-md-0">List</h1>
+                    <div class="row justify-content-center">
+                        <div class="col-md-7">
+                            <div class="text">
+                                <p>{{ sitesetting.text_for_listweblog }}</p>
+                                <div class="mouse">
+                                    <a class="mouse-icon">
+                                        <div class="mouse-wheel"><span class="ion-ios-arrow-round-down"></span></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+
+    <section class="ftco-section bg-light " id="main_section">
+        <div class="cat_gen_filter">
+            <button class="navbar-toggler category_menu" type="button" data-toggle="collapse"
+                    data-target="#category-nav"
+                    aria-controls="category-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Category
+            </button>
+            <div class="collapse navbar-collapse" id="category-nav">
+                <ul class="navbar-nav ml-auto category my_category_ul">
+                    {% for object in category %}
+                        <div class="section_{{ object.count }}">
+                            {% for categorys in object %}
+                                <li class="nav-item"><a
+                                        href="{% url 'list_weblog' category=categorys.url_title %}#main_section"
+                                        class="nav-link">{{ categorys }}</a></li>
+
+                            {% endfor %}
+                        </div>
+
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <hr>
+            <button class="navbar-toggler gender_menu" type="button" data-toggle="collapse" data-target="#gender-nav"
+                    aria-controls="gender-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Gender
+            </button>
+            <div class="collapse navbar-collapse" id="gender-nav">
+                <ul class="navbar-nav ml-auto category my_category_ul">
+                    {% for object in Gender %}
+                        <div class="section_{{ object.count }}">
+                            {% for genders in object %}
+                                <li class="nav-item"><a
+                                        href="{% url 'list_weblog' category=genders.url_title %}#main_section"
+                                        class="nav-link">{{ genders }}</a></li>
+
+                            {% endfor %}
+                        </div>
+
+                    {% endfor %}
+
+                </ul>
+            </div>
+
+        </div>
+
+
+        <div class="d-flex flex-column filter_box">
+            <form id="post_form" class="m-4 p-4 filter_box_form">
+                {% csrf_token %}
+                <div class="d-flex w-50 mr-5 p-4 justify-content-around box_filter">
+                    <label class="form-label mr-4 x" for="filter_web">Filter:</label>
+                    <select onclick="filter_weblog()" class="w-75 select_box" aria-label="Large select example"
+                            name="filter" id="filter_web">
+                        <option id="set_first_filter" value="" disabled selected hidden>Select your option</option>
+                        <option value="-date">last date</option>
+                        <option value="date">first date</option>
+                        <option value="-satisfaction_percentage">more rate</option>
+                        <option value="satisfaction_percentage">less rate</option>
+                    </select>
+                </div>
+
+                <div class="w-50  p-4 justify-content-around box_filter">
+                    <label class="form-label mr-4 x" for="search">Search</label>
+                    <input onkeyup="searchfunc()" class="w-75 select_box" type="text" id="search" placeholder="search"
+                           name="search">
+                </div>
+            </form>
+        </div>
+        <div class="container" id="container_id">
+            <div class="row d-flex" id="alireza">
+                {% for web in web_log %}
+                    <div class="col-md-4 d-flex ">
+                        <div class="blog-entry justify-content-end">
+                            <a href="{{ web.get_absolut_url }}" class="block-20"
+                               style="background-image: url('{{ web.main_photo.url }}');">
+                            </a>
+                            <div class="tree">
+                                <span class="dr">{{ web.category_web_model.first.title }}</span>
+                            </div>
+                            <div class="text p-4 float-right d-block">
+                                <div class="topper d-flex align-items-center">
+                                    <div class="one py-2 pl-3 pr-1 align-self-stretch">
+                                        <span class="day">{{ web.date.day }}</span>
+                                    </div>
+                                    <div class="two pl-0 pr-3 py-2 align-self-stretch">
+                                        <span class="yr">{{ web.date.year }}</span>
+                                        <span class="mos">{{ web.date.month|month_name }}</span>
+                                    </div>
+                                </div>
+                                <h3 class="heading mb-3"><a href="{{ web.get_absolut_url }}">{{ web.title }}</a></h3>
+                                <p>{{ web.shortdescription|truncatewords:25 }}</p>
+                                <p><a href="{{ web.get_absolut_url }}" class="btn-custom"><span
+                                        class="ion-ios-arrow-round-forward mr-3"></span>Read
+                                    more</a></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <div class="block-27">
+                        <ul>
+                            {% if page_obj.has_previous %}
+                                <li><a href="?page={{ page_obj.previous_page_number }}#main_section">&lt;</a></li>
+                            {% endif %}
+                            {% for page in paginator %}
+                                {% if page.number == page_obj.number %}
+                                    <a id="first_for_filter" href="?page=1#main_section"></a>
+                                    <li class="active"><span>{{ page_obj.number }}</span></li>
+                                {% else %}
+                                    <li><a href="?page={{ page.number }}#main_section">{{ page.number }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li><a href="?page={{ page_obj.next_page_number }}#main_section">&gt;</a></li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

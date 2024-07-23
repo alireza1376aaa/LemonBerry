@@ -1,0 +1,61 @@
+{% load static %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+<link rel="stylesheet" href="{% static 'css/aos.css' %}">
+<link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+<link rel="stylesheet" href=" {% static 'css/style.css' %}">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'css/style.css' %}">
+<script nonce="0e2ccc94-514c-4f19-b1a8-24ae44cc71ba">(function (w, d) {
+    !function (L, M, N, O) {
+        L[N] = L[N] || {};
+        L[N].executed = [];
+        L.zaraz = {deferred: [], listeners: []};
+        L.zaraz.q = [];
+        L.zaraz._f = function (P) {
+            return async function () {
+                var Q = Array.prototype.slice.call(arguments);
+                L.zaraz.q.push({m: P, a: Q})
+            }
+        };
+        for (const R of ["track", "set", "debug"]) L.zaraz[R] = L.zaraz._f(R);
+        L.zaraz.init = () => {
+            var S = M.getElementsByTagName(O)[0], T = M.createElement(O), U = M.getElementsByTagName("title")[0];
+            U && (L[N].t = M.getElementsByTagName("title")[0].text);
+            L[N].x = Math.random();
+            L[N].w = L.screen.width;
+            L[N].h = L.screen.height;
+            L[N].j = L.innerHeight;
+            L[N].e = L.innerWidth;
+            L[N].l = L.location.href;
+            L[N].r = M.referrer;
+            L[N].k = L.screen.colorDepth;
+            L[N].n = M.characterSet;
+            L[N].o = (new Date).getTimezoneOffset();
+            if (L.dataLayer) for (const Y of Object.entries(Object.entries(dataLayer).reduce(((Z, $) => ({...Z[1], ...$[1]})), {}))) zaraz.set(Y[0], Y[1], {scope: "page"});
+            L[N].q = [];
+            for (; L.zaraz.q.length;) {
+                const ba = L.zaraz.q.shift();
+                L[N].q.push(ba)
+            }
+            T.defer = !0;
+            for (const bb of [localStorage, sessionStorage]) Object.keys(bb || {}).filter((bd => bd.startsWith("_zaraz_"))).forEach((bc => {
+                try {
+                    L[N]["z_" + bc.slice(7)] = JSON.parse(bb.getItem(bc))
+                } catch {
+                    L[N]["z_" + bc.slice(7)] = bb.getItem(bc)
+                }
+            }));
+            T.referrerPolicy = "origin";
+            T.src = "/cdn-cgi/zaraz/s.js?z=" + btoa(encodeURIComponent(JSON.stringify(L[N])));
+            S.parentNode.insertBefore(T, S)
+        };
+        ["complete", "interactive"].includes(M.readyState) ? zaraz.init() : L.addEventListener("DOMContentLoaded", zaraz.init)
+    }(w, d, "zarazData", "script");
+})(window, document);</script>

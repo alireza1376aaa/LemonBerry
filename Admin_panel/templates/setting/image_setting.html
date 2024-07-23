@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin_style.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'admin/js/custom.js' %}"></script>
+
+
+    <title>Admin Panel</title>
+</head>
+<body>
+<div class="content d-flex justify-content-center align-items-center flex-column position-absolute site-top-pos">
+    <div class="w-100">
+        <div class="row home_icon homeandback w-75 sticky-top pt-5 ">
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative mr-4">
+                <a href="{% url 'setting_panel' %}"><img id="back_selector" class="avatar-img rounded-circle"
+                                                         src="{% static 'admin/img/back.png' %}"></a>
+            </div>
+
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative">
+                <a href="{% url 'Home_page' %}"><img id="home_selector" class="avatar-img rounded-circle"
+                                                     src="{% static 'admin/img/home1.png' %}"/></a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row d-flex h-100 w-75 align-items-center overflow-auto pt-5 mt-5 justify-content-center">
+        <span> <h1 class="display-1 text-secondary header mb-5">Set Picture</h1> </span>
+        <form class="w-100" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card mb-3">
+                <label for="input_file_img1" id="label_input_file_img1" class="file_cart_photo"></label>
+                <input name="mainpage" type="file" id="input_file_img1"
+                       onchange="showMyImage(this,'#label_input_file_img1','#input_file_img1')">
+                <img src="{% if main_page.Main_photo %}{{ main_page.Main_photo.url }}{% else %}{% static 'admin/img/bgpage.png' %}{% endif %}" class="card-img-top wer cust" alt="mainPage">
+                <div class="card-body">
+                    <h5 class="card-title">Main Page</h5>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <label for="input_file_img2" class="file_cart_photo" id="label_input_file_img2"></label>
+                <input name="About_Us_Page" type="file" id="input_file_img2"
+                       onchange=" showMyImage(this,'#label_input_file_img2','#input_file_img2')">
+                <img src="{% if page_img.about_us_img %}{{ page_img.about_us_img.url }}{% else %}{% static 'admin/img/bgpage.png' %}{% endif %}" class="card-img-top wer cust" alt="About Us Page">
+                <div class="card-body">
+                    <h5 class="card-title">About Us Page</h5>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <label for="input_file_img3" id="label_input_file_img3" class="file_cart_photo"></label>
+                <input name="List_Weblog_Page" type="file" id="input_file_img3"
+                       onchange=" showMyImage(this,'#label_input_file_img3','#input_file_img3')">
+                <img src="{% if page_img.list_weblog_img %}{{ page_img.list_weblog_img.url }}{% else %}{% static 'admin/img/bgpage.png' %}{% endif %}" class="card-img-top wer cust" alt="List Weblog Page">
+                <div class="card-body">
+                    <h5 class="card-title">Add Message for List Page</h5>
+                    <input type="text" class="form-control" name="text_massage_list" placeholder="{{ page_img.text_for_listweblog }}">
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <label for="input_file_img4" id="label_input_file_img4" class="file_cart_photo"></label>
+                <input name="Contact_Us_Page" type="file" id="input_file_img4"
+                       onchange="showMyImage(this,'#label_input_file_img4','#input_file_img4')">
+                <img src="{% if page_img.contact_us_img %}{{ page_img.contact_us_img.url }}{% else %}{% static 'admin/img/bgpage.png' %}{% endif %}" class="card-img-top wer cust" alt="Contact Us Page">
+                <div class="card-body">
+                    <h5 class="card-title">Contact Us Page</h5>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <label for="input_file_img5" id="label_input_file_img5" class="file_cart_photo"></label>
+                <input name="Make_Blog_Page" type="file" id="input_file_img5"
+                       onchange="showMyImage(this,'#label_input_file_img5','#input_file_img5')">
+                <img src="{% if page_img.make_blog_img %}{{ page_img.make_blog_img.url }}{% else %}{% static 'admin/img/bgpage.png' %}{% endif %}" class="card-img-top wer cust" alt="Make Blog Page">
+                <div class="card-body">
+                    <h5 class="card-title">Make Blog Page</h5>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-info col-12 mt-5">Send</button>
+
+        </form>
+
+    </div>
+</div>
+
+
+
+</body>
+</html>

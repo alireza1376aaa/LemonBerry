@@ -1,0 +1,35 @@
+{% extends 'Main/main_user.html' %}
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <section class="ftco-section contact-section bg-dark">
+        <div class="container">
+            <div class="row d-flex mb-5 contact-info">
+                <div class="col-md-12 mb-4">
+                    <h2 class="h1 text-center white">Register Page</h2>
+                </div>
+                <div class="w-100"></div>
+            </div>
+            <div class="row block-9 no-gutters">
+                <div class="col-lg-12 order-md-last d-flex w-100">
+                    <form method="post" action="{% url 'Register' %}" class="bg-light p-4 p-md-5 contact-form text-center">
+                        {% csrf_token %}
+
+                        {% for foo in register_form %}
+                            <div class="form-group">
+                                {{ foo }}
+                            {% if foo.errors %}
+                                {{ foo.errors }}
+                            {% endif %}
+                            </div>
+                        {% endfor %}
+                    <input id="form_w_75" type="submit" value="Register" class="btn btn-primary py-3 px-5">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

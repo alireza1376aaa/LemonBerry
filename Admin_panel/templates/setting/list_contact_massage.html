@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin_style.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'admin/js/custom.js' %}"></script>
+
+
+    <title>Contact Massage</title>
+</head>
+<body>
+<div class="content d-flex justify-content-center align-items-center flex-column position-absolute site-top-pos">
+    <div class="w-100">
+        <div class="row home_icon homeandback w-75 sticky-top pt-5 ">
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative mr-4 ">
+                <a href="{% url 'setting_panel' %}"><img id="back_selector" class="avatar-img rounded-circle"
+                                                         src="{% static 'admin/img/back.png' %}"/></a>
+            </div>
+
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative">
+                <a href="{% url 'adminpanel' %}"><img id="home_selector" class="avatar-img rounded-circle"
+                                                      src="{% static 'admin/img/home1.png' %}"/></a>
+                <label for="home_selector"
+                       class="text-center font-weight-bold text-secondary setting_label_tag">Home</label>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row d-flex h-100 w-75 align-items-center overflow-auto pt-5 mt-5 justify-content-center">
+        <span> <h1 class="display-1 text-secondary header mb-5">Massage contact</h1> </span>
+        <div class="w-100">
+
+            {% for massage in main_page %}
+                <div class="card mb-5 custom_card {% if massage.visited == False %}danger_card{% endif %}">
+                    <div class="card-header">
+                        {{ massage.User.get_full_name }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ massage.Subject }}</h5>
+                        <p class="card-text">{{ massage.Text_massage }}</p>
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ massage.id }}" name="id_massage">
+                            <textarea name="answer" id="massag_back" cols="30" rows="2"
+                                      placeholder="Your Response"></textarea>
+                            <button type="submit" class="btn btn-info">Response</button>
+                        </form>
+
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin_style.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'admin/js/custom.js' %}"></script>
+
+
+    <title>Admin Panel</title>
+</head>
+<body>
+<div class="content d-flex justify-content-center align-items-center flex-column position-absolute site-top-pos">
+    <div class="w-100">
+        <div class="row home_icon homeandback w-75 sticky-top pt-5 ">
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative mr-4 ">
+                <a href="{% url 'setting_panel' %}"><img id="back_selector" class="avatar-img rounded-circle"
+                                                         src="{% static 'admin/img/back.png' %}"/></a>
+            </div>
+
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative">
+                <a href="{% url 'adminpanel' %}"><img id="home_selector" class="avatar-img rounded-circle"
+                                                      src="{% static 'admin/img/home1.png' %}"/></a>
+                <label for="home_selector"
+                       class="text-center font-weight-bold text-secondary setting_label_tag">Home</label>
+
+            </div>
+
+        </div>
+        <div class="row add_icon homeandback w-100 sticky-top pt-5 position-relative">
+            <div class="add_box_toogle add_box_toogle avatar-sm d-flex flex-column align-items-center position-absolute add_icon_po">
+                <a onclick="toggle_add()"><img id="home_selector" class="avatar-img rounded-circle"
+                                               src="{% static 'admin/img/add.png' %}"/></a>
+            </div>
+        </div>
+    </div>
+    <div id="toggle_add_val" class="add_box d-flex justify-content-center">
+        <span class="close_add"><a onclick="toggle_add_close()"><img class="zxc"
+                                                                     src="{% static 'admin/img/close.png' %}" alt=""
+                                                                     width="30px"></a></span>
+        <div class="w-50 d-flex flex-column align-items-center justify-content-center">
+            <h1 class="display-5">Add Member</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card employee_card">
+                    <div class="w-100 position-relative">
+                        <label for="input_file_img" id="label_input_file_img" class="file_cart_photo"></label>
+                        <input name="Make_profile" type="file" id="input_file_img"
+                               onchange="showMyImage(this,'#label_input_file_img','#input_file_img')">
+                        <img class="card-img-top w-25" src="{% static 'admin/img/profile.jpg' %}" alt="Card image cap">
+                    </div>
+                    <div class="card-body add_member">
+                        <input name="name_member" type="text" class="form-control" placeholder="add name">
+                        <input name="job_member" type="text" class="form-control" placeholder="add job">
+                        <textarea name="about_member" id="" placeholder="about_member" ></textarea>
+                        <button href="#" class="btn  btn-info">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row d-flex h-100 w-75 align-items-center overflow-auto pt-5 mt-5 justify-content-center">
+        <span> <h1 class="display-1 text-secondary header mb-5"> Add Employee </h1> </span>
+        <form action="" class="w-100 d-flex flex-wrap">
+            {% for empl in main_page %}
+                <div class="card employee_card">
+                    <img class="card-img-top cust" src="
+
+                            {% if empl.img %}{{ empl.img.url }}{% else %}{% static 'admin/img/profile.jpg' %}{% endif %}"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ empl.fullname }}</h5>
+                        <h6 class="card-title">{{ empl.job }}</h6>
+
+                        <p class="card-text">{{ empl.about }}</p>
+                        <a href="{% url 'remove_employee' id_em=empl.id %}" class="btn  btn-danger">Dismissal</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+
+        </form>
+
+    </div>
+</div>
+
+
+</body>
+</html>

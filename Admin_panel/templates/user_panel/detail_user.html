@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin_style.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+</head>
+<body>
+<div class="row home_icon homeandback w-75 sticky-top pt-3 ">
+    <div class="avatar-sm d-flex flex-column align-items-center position-relative mr-4">
+        <a href="{% url 'list_user_p' %}"><img id="back_selector" class="avatar-img rounded-circle"
+                                              src="{% static 'admin/img/back.png' %}"/></a>
+    </div>
+
+    <div class="avatar-sm d-flex flex-column align-items-center position-relative">
+        <a href="{% url 'adminpanel' %}"><img id="home_selector" class="avatar-img rounded-circle"
+                                              src="{% static 'admin/img/home1.png' %}"/></a>
+    </div>
+
+</div>
+<section class="ftco-section contact-section">
+    <div class="container-xl px-4 mt-4">
+
+        <hr class="mt-0 mb-4">
+        <div class="row">
+            <div class="col-xl-4 d-flex flex-column justify-content-center">
+                <!-- Profile picture card-->
+                <div class="user_de card mb-4 mb-xl-0">
+                    <div class="card-header">Profile Picture</div>
+                    <div class="card-body text-center">
+                        <!-- Profile picture image-->
+                        <img width="200" height="200" class="img-account-profile rounded-circle mb-2"
+                                {% if user.image_pro %}
+                             src="{{ user.image_pro.url }}"
+                                {% endif %} alt="">
+                        <div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <!-- Account details card-->
+                <div class="user_de card mb-4">
+                    <div class="card-header">Account Details</div>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <!-- Form Group (username)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputUsername">Username (how your name will appear to
+                                other users on the site)</label>
+                            <input class="form-control" id="inputUsername" type="text"
+                                   placeholder="Enter your username" value="{{ user.username }}" name="username">
+                        </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (first name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputFirstName">First name</label>
+                                <input class="form-control" id="inputFirstName" type="text"
+                                       placeholder="Enter your first name" value="{{ user.first_name }}"
+                                       name="firstname">
+                            </div>
+                            <!-- Form Group (last name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLastName">Last name</label>
+                                <input class="form-control" id="inputLastName" type="text"
+                                       placeholder="Enter your last name" value="{{ user.last_name }}" name="lastname">
+                            </div>
+                        </div>
+                        <!-- Form Row        -->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (organization name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputOrgName">city name</label>
+                                <input class="form-control" id="inputOrgName" type="text"
+                                       placeholder="Enter your city name" value="
+
+                                        {% if user.main_location != None %}{{ user.main_location }}{% else %}{% endif %}"
+                                       name="mainlocation">
+                            </div>
+                            <!-- Form Group (location)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLocation">Location</label>
+                                <input class="form-control" id="inputLocation" type="text"
+                                       placeholder="Enter your location"
+                                       value="{% if user.location != None %}{{ user.location }}{% else %}{% endif %}"
+                                       name="location">
+                            </div>
+                        </div>
+                        <!-- Form Group (email address)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                            <input class="form-control" id="inputEmailAddress" type="email"
+                                   placeholder="Enter your email address" value="{{ user.email }}" name="email">
+                        </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (phone number)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPhone">Phone number</label>
+                                <input required class="form-control" id="inputPhone" type="tel"
+                                       placeholder="Enter your phone number"
+                                       value="{% if user.phone != None %}{{ user.phone }}{% else %}{% endif %}"
+                                       name="phonenamber">
+                            </div>
+                            <!-- Form Group (birthday)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputBirthday">Birthday</label>
+                                <input class="form-control" id="inputBirthday" type="date" name="birthday"
+                                       placeholder="Enter your birthday" value="{{ user.date_birth | date:'Y-m-d' }}">
+                            </div>
+                        </div>
+                        <!-- Save changes button-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+</body>
+</html>

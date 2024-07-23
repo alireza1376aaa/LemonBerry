@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin_style.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'admin/js/custom.js' %}"></script>
+
+
+    <title>About Us Setting</title>
+</head>
+<body>
+    <div class="w-100 content d-flex justify-content-center align-items-center flex-column position-absolute site-top-pos">
+       <div class="w-100">
+         <div class="row home_icon homeandback w-75 sticky-top pt-5 ">
+          <div class="avatar-sm d-flex flex-column align-items-center position-relative mr-4 ">
+              <a href="{% url 'setting_panel' %}"><img id="back_selector" class="avatar-img rounded-circle" src="{% static 'admin/img/back.png' %}" /></a>
+          </div>
+
+           <div class="avatar-sm d-flex flex-column align-items-center position-relative">
+            <a href="{% url 'adminpanel' %}"><img id="home_selector" class="avatar-img rounded-circle"
+                                                  src="{% static 'admin/img/home1.png' %}"/></a>
+            <label for="home_selector"
+                   class="text-center font-weight-bold text-secondary setting_label_tag">Home</label>
+
+            </div>
+         
+      </div>
+      
+       </div>
+        
+        <div class="row d-flex h-100 w-75 align-items-center  pt-5 mt-5 mb-5 pl-3 justify-content-center">
+            <span class="" > <h1 class="col-12 display-1 text-secondary header mb-5 w-100 mt-5 ">About Us Setting</h1> </span><br>
+            <div class="col-12">
+              <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+                <div class="card mb-3">
+                    <label for="input_file_img" class="file_cart_photo" id="label_input_file_img"></label>
+                    <input name="img_about" type="file" id="input_file_img" onchange="showMyImage(this,'#label_input_file_img','#input_file_img')">
+                    <img src="{% if main_page.Image_for_About %}{{ main_page.Image_for_About.url }}{% else %}{% static 'admin/img/bgpage.png' %}{% endif %}" class="card-img-top wer cust" alt="about">
+                    <div class="card-body">
+                      <h5 class="card-title">Picture for Company</h5>
+                    </div>
+                  </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputWelcom">Text Welcom</label>
+                    <input placeholder="{{ main_page.Welcome_message_text }}" name="wellcom_about" type="text" class="form-control" id="inputWelcom">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputTitle_description">Title description</label>
+                    <input placeholder="{{ main_page.Title_description }}" name="title_descr" type="text" class="form-control" id="inputTitle_description">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputdescription">Main description</label>
+                  <input  name="main_descr" type="text" class="form-control" id="inputdescription" placeholder="{{ main_page.Main_description }}">
+                </div>
+                <div class="form-row">
+                    <div class="form-group w-50">
+                        <label for="inputTitle1_description">Title1 description</label>
+                        <input name="title1_descr" type="text" class="form-control" id="inputTitle1_description" placeholder="{{ main_page.part1_description }}">
+                      </div>
+                      <div class="form-group w-100">
+                        <label for="inputPart1_description">Part1 description</label>
+                        <textarea placeholder="{{ main_page.part1_body }}" name="main1descr" type="text" class="form-control " id="inputPart1_description"></textarea>
+                      </div>
+                </div>   
+                <div class="form-row">
+                    <div class="form-group w-50">
+                        <label for="inputTitle2_description">Title2 description</label>
+                        <input name="title2_descr" type="text" class="form-control" id="inputTitle2_description" placeholder="{{ main_page.part2_description }}">
+                      </div>
+                      <div class="form-group w-100">
+                        <label for="inputPart2_description">Part2 description</label>
+                        <textarea placeholder="{{ main_page.part2_body }}" name="main2descr" type="text" class="form-control" id="inputPart2_description"></textarea>
+                      </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group w-50">
+                        <label for="inputTitle3_description">Title3 description</label>
+                        <input name="title3_descr" type="text" class="form-control" id="inputTitle3_description" placeholder="{{ main_page.part3_body }}">
+                      </div>
+                      <div class="form-group w-100">
+                        <label for="inputPart3_description">Part3 description</label>
+                        <textarea placeholder="{{ main_page.part3_description }}" name="main3descr" type="text" class="form-control" id="inputPart3_description"></textarea>
+                      </div>
+                </div>
+                  
+                <button type="submit" class="btn btn-info col-12 mt-5 mb-5">Change</button>
+              </form>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+</html>

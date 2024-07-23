@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin_style.css' %}">
+
+    <title>Admin Panel</title>
+</head>
+<body>
+    <div class="content d-flex justify-content-center align-items-center flex-column position-absolute site-top-pos">
+        <div class="row home_icon">
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative">
+                <a href="{% url 'adminpanel' %}"><img id="home_selector" class="avatar-img rounded-circle" src="{% static 'admin/img/home1.png' %}" /></a>
+                <label for="home_selector" class="text-center font-weight-bold text-secondary setting_label_tag">Home</label>
+
+            </div>
+        </div>
+        <div class="row">
+                <h1 class="display-1 display-sm-5 text-secondary header">User</h1>
+        </div>
+        <div class="row d-flex h-50 w-50 align-items-center">
+            <div class="col-6 d-flex justify-content-center mb-5 " >
+                <div class="avatar-big d-flex flex-column align-items-center position-relative">
+                    <span class="w-auto h-auto badge badge-pill badge-info position-absolute cusbom_bad">{{ count_all }}</span>
+                    <a href="{% url 'list_user_p' %}"><img id="user_selector" class="avatar-img rounded-circle" src="{% static 'admin/img/listuser.png' %}" /></a>
+                    <label for="user_selector" class="text-center font-weight-bold text-secondary setting_label_tag">List of User</label>
+
+                </div>
+
+            </div>
+
+              <div class="col-6 d-flex justify-content-center mb-5 " >
+                <div class="avatar-big d-flex flex-column align-items-center position-relative">
+                    <span class="w-auto h-auto badge badge-pill badge-info position-absolute cusbom_bad">{{ count_all_visit }}</span>
+                    <a href="{% url 'visited' %}"><img id="user_selector" class="avatar-img rounded-circle" src="{% static 'admin/img/visited.png' %}" /></a>
+                    <label for="user_selector" class="text-center font-weight-bold text-secondary setting_label_tag">Visited List</label>
+
+                </div>
+
+            </div>
+           
+        </div>
+    </div>
+
+
+
+
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+</body>
+</html>

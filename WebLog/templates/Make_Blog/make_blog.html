@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Make Blog
+{% endblock %}
+
+{% block slider %}
+
+    <section class="hero-wrap hero-wrap-2 js-fullheight"
+             style="background-image: url('{{sitesetting.make_blog_img.url}}');"
+             data-stellar-background-ratio="0.5" xmlns:button="http://www.w3.org/1999/html"
+             xmlns:button="http://www.w3.org/1999/html">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate pb-5 text-center">
+                    <h1 class="mb-3 bread"> Make Blog </h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'Home_page' %}">Home <i
+                            class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a
+                            href="{% url 'list_weblog' category='weball' %}">Blog <i
+                            class="ion-ios-arrow-forward"></i></a></span> <span> Make Blog  <i
+                            class="ion-ios-arrow-forward"></i></span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block main %}
+    <section class="ftco-section ftco-degree-bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <form action="" method="post" enctype="multipart/form-data" class="make_weblog_class">
+                    {% csrf_token %}
+
+
+                    <div class="col-lg-12 ftco-animate">
+                        <!-- ///////////////////////////////////////////////////////// -->
+                        <div class="main_data">
+
+                            {{ form.title_main_f }}
+                            {% if form.title_main.errors %}
+                                {{ form.title_main_f.errors }}
+                            {% endif %}
+
+                            <div class="data_story">
+                                <div class="sort_disc">
+                                    {{ form.short_discription }}
+                                    {% if form.short_discription.errors %}
+                                        {{ form.short_discription.errors }}
+                                    {% endif %}
+
+
+                                </div>
+                                <div class="data_select_box">
+                                    <div class="select_cat">
+                                        <label class="form-label mr-4" for="category">Select Category :</label>
+                                        {{ form.category }}
+                                        {% if form.category.errors %}
+                                            {{ form.category.errors }}
+                                        {% endif %}
+                                    </div>
+                                    <hr>
+                                    <div class="select_genre">
+                                        <label class="form-label mr-4" for="genre">Select Genre :</label>
+                                        {{ form.genre }}
+                                        {% if form.genre.errors %}
+                                            {{ form.genre.errors }}
+                                        {% endif %}
+                                    </div>
+                                    <hr>
+                                    <div class="add_tag">
+                                        <h3>Add Tag</h3>
+                                        <div class="form-group group_tag">
+                                            <input type="hidden" id="list_tag" name="list_tag">
+                                            <input name="tag_list" id="inputTag" type="text" class="form-control"
+                                                   placeholder="Type a Tag and Add in your list">
+                                            <span class="add_plus_tag"><a class="link_add_tag"
+                                                                          onclick="addTag();validlist();">+</a></span>
+                                        </div>
+                                        <h5 class="remove_tag_title">If you want <span> remove </span> => select tag
+                                        </h5>
+                                        <div class="tagcloud" id="tagcloud">
+                                            <div id="warning_tag">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- //////////////////////////////////////////////////////////////
+                         -->
+
+                        <img class="mb-5" id="selexttets">
+                        <label for="file-upload" class="custom-file-upload" id="label-file-upload">
+                            Add Main Photo
+                        </label>
+
+                        {{ form.img1 }}
+                        {% if form.img1.errors %}
+                            {{ form.img1.errors }}
+                        {% endif %}
+
+                        </img>
+                        {{ form.title_main }}
+                        {% if form.title_main.errors %}
+                            {{ form.title_main.errors }}
+                        {% endif %}
+
+                        {{ form.main_text_story }}
+
+                        {% if form.main_text_story.errors %}
+                            {{ form.main_text_story.errors }}
+                        {% endif %}
+                        <p class="mb-5">
+                            <label for="file-upload_1" class="custom-file-upload" id="label-file-upload_1">
+                                Add Other Photo
+                            </label>
+                            {{ form.img2 }}
+                            {% if form.img2.errors %}
+                                {{ form.img2.errors }}
+                            {% endif %}
+                        </p>
+
+                        <!-- ///////////////////////////////////////////////// -->
+                        <hr>
+                        <a class="btn py-3 px-5 w-100" onclick="show_section2()">Add Section 2 </a>
+                        <div class="section_body_2">
+                            <h2 class="mb-3 mt-5 text-center">Section 2 </h2>
+                            {{ formsection2.title_section_2 }}
+                            {% if formsection2.title_section_2.errors %}
+                                {{ fformsection2.title_section_2.error_messages }}
+                            {% endif %}
+                            {{ formsection2.section_2_text_story }}
+                            {% if formsection2.section_2_text_story.errors %}
+                                {{ formsection2.section_2_text_story.error_messages }}
+                            {% endif %}
+                            <p class="mb-5">
+                                <label for="file-upload_2" class="custom-file-upload" id="label-file-upload_2">
+                                    Add Photo For Section 2
+                                </label>
+
+                                {{ formsection2.img3 }}
+                                {% if formsection2.img3.errors %}
+                                    {{ formsection2.img3.errors }}
+                                {% endif %}
+                            </p>
+
+                        </div>
+                        <!-- ///////////////////////////////////////////////// -->
+
+
+                        <!-- ///////////////////////////////////////////////// -->
+                        <hr>
+                        <a class="btn py-3 px-5 w-100" onclick="show_section3()">Add Section 3 </a>
+
+                        <div class="section_body_3">
+                            <h2 class="mb-3 mt-5 text-center">Section 3 </h2>
+                            {{ formsection3.title_section_3 }}
+                            {% if formsection3.title_section_3.errors %}
+                                {{ fformsection3.title_section_3.error_messages }}
+                            {% endif %}
+                            {{ formsection3.section_3_text_story }}
+                            {% if formsection3.section_3_text_story.errors %}
+                                {{ formsection3.section_3_text_story.error_messages }}
+                            {% endif %}
+                            <p class="mb-5">
+                                <label for="file-upload_3" class="custom-file-upload" id="label-file-upload_3">
+                                    Add Photo For Section 3
+                                </label>
+                                {{ formsection3.img4 }}
+                                {% if formsection3.img4.errors %}
+                                    {{ formsection3.img4.errors }}
+                                {% endif %}
+                            </p>
+                        </div>
+
+                        <!-- ///////////////////////////////////////////////// -->
+
+
+                        <!-- ///////////////////////////////////////////////// -->
+                        <hr>
+                        <a class="btn  py-3 px-5 w-100" onclick="show_section4()">Add Section 4 </a>
+
+                        <div class="section_body_4">
+                            <h2 class="mb-3 mt-5 text-center">Section 4 </h2>
+                            {{ formsection4.title_section_4 }}
+                            {% if formsection4.title_section_4.errors %}
+                                {{ fformsection4.title_section_4.error_messages }}
+                            {% endif %}
+                            {{ formsection4.section_4_text_story }}
+                            {% if formsection4.section_4_text_story.errors %}
+                                {{ formsection4.section_4_text_story.error_messages }}
+                            {% endif %}
+                            <p class="mb-5">
+                                <label for="file-upload_4" class="custom-file-upload" id="label-file-upload_4">
+                                    Add Photo For Section 4
+                                </label>
+                                {{ formsection4.img5 }}
+                                {% if formsection4.img5.errors %}
+                                    {{ formsection4.img5.errors }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <hr>
+
+                        <!-- ///////////////////////////////////////////////// -->
+
+                    </div>
+                    <button class="btn btn-primary py-3 px-5 w-100" type="submit">Send Exprience</button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

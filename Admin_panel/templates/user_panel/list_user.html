@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap4-toggle.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin_style.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+
+
+    <title>List User</title>
+</head>
+<body>
+<div class="content d-flex justify-content-center align-items-center flex-column position-absolute site-top-pos">
+    <div class="w-100">
+        <div class="row home_icon homeandback w-75 sticky-top pt-5 ">
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative mr-4">
+                <a href="{% url 'user_panel' %}"><img id="back_selector" class="avatar-img rounded-circle"
+                                                      src="{% static 'admin/img/back.png' %}"/></a>
+            </div>
+
+            <div class="avatar-sm d-flex flex-column align-items-center position-relative">
+                <a href="{% url 'adminpanel' %}"><img id="home_selector" class="avatar-img rounded-circle"
+                                                      src="{% static 'admin/img/home1.png' %}"/></a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row d-flex h-100 w-75 align-items-center overflow-auto pt-5 mt-5 justify-content-center">
+
+
+        <span> <h1 class="display-1 text-secondary header mb-5">List User </h1> </span>
+        <table class="table table-striped table-hover table-responsive-sm">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Location</th>
+                <th scope="col">Verify</th>
+                <th scope="col">Visited more ditails</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for liuser in user %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <th>{{ liuser.get_full_name }}</th>
+                    <td>{{ liuser.email }}</td>
+                    <td>{{ liuser.phone }}</td>
+                    <td>{{ liuser.location }}</td>
+                    <td><input name="" type="checkbox" data-toggle="toggle" {% if liuser.is_verify %}checked{% endif %}
+                               data-onstyle="success"></td>
+                    <td><a href="{{ liuser.get_absolut_url }}" class="btn btn-info">Visit User More</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'admin/js/bootstrap4-toggle.js' %}"></script>
+<script src="{% static 'admin/js/custom.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Contact_Us
+{% endblock %}
+
+{% block slider %}
+    <section class="hero-wrap hero-wrap-2 js-fullheight"
+             style="background-image: url('{{ photo_page.contact_us_img.url }}');"
+             data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate pb-5 text-center">
+                    <h1 class="mb-3 bread">Contact us</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'Home_page' %}">Home <i
+                            class="ion-ios-arrow-forward"></i></a></span> <span>Contact us <i
+                            class="ion-ios-arrow-forward"></i></span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block main %}
+    <section class="ftco-section contact-section">
+        <div class="container">
+            <div class="row d-flex mb-5 contact-info">
+                <div class="col-md-12 mb-4">
+                    <h2 class="h3">Contact Information</h2>
+                </div>
+                <div class="w-100"></div>
+                <div class="col-md-3">
+                    <p><span>Address:</span> {{ site_setting.Address }}</p>
+                </div>
+                <div class="col-md-3">
+                    <p><span>Phone:</span> <a href="tel://1234567920">{{ site_setting.Phone }}</a></p>
+                </div>
+                <div class="col-md-3">
+                    <p><span>Email:</span> <a><span
+                            class="__cf_email__"
+                            data-cfemail="deb7b0b8b19ea7b1abacadb7aabbf0bdb1b3">{{ site_setting.Email }}</span></a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <p><span>Website</span> <a>{{ site_setting.Website }}</a></p>
+                </div>
+            </div>
+            {{ status }}
+            <div class="row block-9 no-gutters">
+                <div class="col-lg-6 order-md-last d-flex">
+                    <form action="#" class="bg-light p-4 p-md-5 contact-form">
+                        {% if request.user.is_authenticated %}
+                            <div class="form-group">
+                                <input id="email_fild" type="email" class="form-control"
+                                       name="email_ad" value="{{ request.user.email }}" readonly>
+                            </div>
+                        {% else %}
+                            <div class="form-group">
+                                <input id="email_fild" type="email" class="form-control" placeholder="Your Email"
+                                       name="email_ad" onblur="checkemail()">
+                                <p id="alert_text_fild"></p>
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subject" name="subject"
+                                   id="subject_co">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="massage" cols="30" rows="7" class="form-control"
+                                      placeholder="Message" id="massage_co"></textarea>
+                        </div>
+                        <div class="form-group d-block" id="login_button">
+                            <input onclick="send_contact()" value="Send Message" class="btn btn-primary py-3 px-5"
+                                   id="btn_submit">
+                        </div>
+                        <p id="massage_result"></p>
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    <h1>This is my Google Maps</h1>
+                    <iframe src="{{ site_setting.Address_map }}"
+                            width="400" height="300" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <div class="swagger">
+                <a href="{% url 'swagger-ui' %}"><img class="swagger_image" src="{% static 'images/swagger.png' %}" alt="swager"></a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

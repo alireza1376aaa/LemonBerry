@@ -1,0 +1,18 @@
+{% load render_partial %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'Main/link_header.html' %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    {% render_partial 'weblog_pro.views.nav'%}
+    {% block slider %} {% endblock %}
+    {% block main %} {% endblock %}
+    {% render_partial 'weblog_pro.views.footer' %}
+    {% include 'Main/link_footer.html' %}
+    {% block footer_ref %} {% endblock %}
+
+</body>
+</html>

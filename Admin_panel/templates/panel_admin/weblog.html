@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin_style.css' %}">
+
+    <title>Admin Panel</title>
+</head>
+<body>
+<div class="content d-flex justify-content-center align-items-center flex-column position-absolute site-top-pos">
+    <div class="row home_icon">
+        <div class="avatar-sm d-flex flex-column align-items-center position-relative">
+            <a href="{% url 'adminpanel' %}"><img id="home_selector" class="avatar-img rounded-circle"
+                                                  src="{% static 'admin/img/home1.png' %}"/></a>
+            <label for="home_selector"
+                   class="text-center font-weight-bold text-secondary setting_label_tag">Home</label>
+
+        </div>
+    </div>
+    <div class="row">
+        <h1 class="display-1 display-sm-5 text-secondary header">WebLog</h1>
+    </div>
+    <div class="row d-flex h-50 w-50 align-items-center">
+        <div class="col-6 d-flex justify-content-center mb-5 ">
+            <div class="avatar-big d-flex flex-column align-items-center position-relative">
+                {% if count > 0 %}
+                    <span class="w-auto h-auto badge badge-pill badge-info position-absolute cusbom_bad">{{ count }}</span>
+                {% endif %}
+                <a href="{% url 'list_blog_deactive' %}"><img id="blog_accept_selector" class="avatar-img rounded-circle"
+                                                src="{% static 'admin/img/accept.png' %}"/></a>
+                <label for="blog_accept_selector" class="text-center font-weight-bold text-secondary setting_label_tag">Accept
+                    Blog</label>
+
+            </div>
+        </div>
+        <div class="col-6 d-flex justify-content-center mb-5">
+            <div class="avatar-big d-flex flex-column align-items-center position-relative">
+                <a href="{% url 'list_category_add' %}"><img id="weblog_cat_selector" class="avatar-img rounded-circle"
+                                                 src="{% static 'admin/img/acceptweb.png' %}"/></a>
+                <label for="weblog_cat_selector" class="text-center font-weight-bold text-secondary setting_label_tag">Add
+                    Category</label>
+
+            </div>
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+            <div class="avatar-big d-flex flex-column align-items-center position-relative">
+                <a href="{% url 'list_genre_add' %}"><img id="weblog_gen_selector" class="avatar-img rounded-circle"
+                                               src="{% static 'admin/img/gender.png' %}"/></a>
+                <label for="weblog_gen_selector" class="text-center font-weight-bold text-secondary setting_label_tag">Add
+                    Genre</label>
+
+            </div>
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+            <div class="avatar-big d-flex flex-column align-items-center position-relative">
+                <a href="{% url 'list_blog_a' %}"><img id="rate_selector" class="avatar-img rounded-circle"
+                                              src="{% static 'admin/img/rate.png' %}"/></a>
+                <label for="rate_selector" class="text-center font-weight-bold text-secondary setting_label_tag">Show
+                    More Rate Blog</label>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <script src="js/bootstrap.min.js"></script> -->
+</body>
+</html>

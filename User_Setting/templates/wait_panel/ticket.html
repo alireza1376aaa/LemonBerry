@@ -1,0 +1,45 @@
+{% extends 'Main/main_user.html' %}
+{% load poll_extras %}
+{% block title %}
+    Ticket
+{% endblock %}
+
+{% block main %}
+    <section class="ftco-section contact-section bg-dark">
+        <div class="container-xl px-4 mt-4">
+            <!-- Account page navigation-->
+            <nav class="nav nav-borders">
+                <a class="nav-link ms-0" href="{% url 'Edit_Profile' %}">Profile</a>
+                <a class="nav-link ms-0" href="{% url 'Wait_Profile' %}">Wait</a>
+                <a class="nav-link active ms-0" href="">Tickets</a>
+
+            </nav>
+            <hr class="mt-0 mb-4">
+            <div class="row justify-content-center">
+
+                <div class="col-md-9 bg-light rounded">
+                    <!-- Account details card-->
+                    <div class="card mb-4 margin_table">
+                        <div class="card-header bg-dark">List Your ticket</div>
+                        {% for massage in massagebox %}
+                            <div class="card mb-5 custom_card mt-3 {% if massage.visited == False %}danger_card{% endif %}">
+                                <div class="card-header">
+                                    {{ massage.User.get_full_name }}
+                                </div>
+                                <div class="card-body card_ticket_body">
+                                    <h4 class="card-title">{{ massage.Subject }}</h4>
+                                    <p class="card-text">{{ massage.Text_massage }}</p><hr>
+                                    {% if massage.visited == True %}
+                                    <h4 class="card-title">Response</h4>
+                                    <p class="card-text">{{ massage.response }}</p>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

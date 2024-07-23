@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Make Blog
+{% endblock %}
+
+{% block slider %}
+
+    <section class="hero-wrap hero-wrap-2 js-fullheight"
+             style="background-image: url('{{form.main_photo.value.url}}');"
+             data-stellar-background-ratio="0.5" xmlns:button="http://www.w3.org/1999/html"
+             xmlns:button="http://www.w3.org/1999/html">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate pb-5 text-center">
+                    <h1 class="mb-3 bread"> Make Blog </h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'Home_page' %}">Home <i
+                            class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a
+                            href="{% url 'list_weblog' category='weball' %}">Blog <i
+                            class="ion-ios-arrow-forward"></i></a></span> <span> Edit Your Blog  <i
+                            class="ion-ios-arrow-forward"></i></span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block main %}
+    <section class="ftco-section ftco-degree-bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <form action="" method="post" enctype="multipart/form-data" class="make_weblog_class">
+                    {% csrf_token %}
+
+
+                    <div class="col-lg-12 ftco-animate">
+                        <!-- ///////////////////////////////////////////////////////// -->
+                        <div class="main_data">
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                {{ form.title.errors }}
+                            {% endif %}
+
+                            <div class="data_story">
+                                <div class="sort_disc">
+                                    {{ form.shortdescription }}
+                                    {% if form.shortdescription.errors %}
+                                        {{ form.shortdescription.errors }}
+                                    {% endif %}
+
+
+                                </div>
+                                <div class="data_select_box">
+                                    <div class="select_cat">
+                                        <label class="form-label mr-4" for="category">Select Category :</label>
+                                        {{ form.category_web_model }}
+                                        {% if form.category_web_model.errors %}
+                                            {{ form.category_web_model.errors }}
+                                        {% endif %}
+                                    </div>
+                                    <hr>
+                                    <div class="select_genre">
+                                        <label class="form-label mr-4" for="genre">Select Genre :</label>
+                                        {{ form.gender }}
+                                        {% if form.gender.errors %}
+                                            {{ form.gender.errors }}
+                                        {% endif %}
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- //////////////////////////////////////////////////////////////
+                         -->
+
+                        <img class="mb-5" id="selexttets">
+                        <label for="file-upload" class="custom-file-edit" id="label-file-upload" style="background-image: url('{{ form.main_photo.value.url }}')">
+                            Add Main Photo
+                        </label>
+
+                        {{ form.main_photo }}
+                        {% if form.main_photo.errors %}
+                            {{ form.main_photo.errors }}
+                        {% endif %}
+
+                        </img>
+                        {{ form.main_title }}
+                        {% if form.main_title.errors %}
+                            {{ form.main_title.errors }}
+                        {% endif %}
+
+                        {{ form.discription }}
+
+                        {% if form.discription.errors %}
+                            {{ form.discription.errors }}
+                        {% endif %}
+                        <p class="mb-5">
+                            <label for="file-upload_1" class="custom-file-edit" id="label-file-upload_1" style="background-image: url('{{ form1.image1.value.url }}')">
+                                Add Other Photo
+                            </label>
+
+                             {{ form1.image1 }}
+                            {% if form1.image1.errors %}
+                                {{ form1.image1.errors }}
+                            {% endif %}
+                        </p>
+                    <hr>
+                        <a class="btn py-3 px-5 w-100" onclick="show_section2()">Add Section 2 </a>
+                        <div class="section_body_2">
+                            <h2 class="mb-3 mt-5 text-center">Section 2 </h2>
+                            {{ form2.title_seasionone }}
+                            {% if form2.title_seasionone.errors %}
+                                {{ form2.title_seasionone.error_messages }}
+                            {% endif %}
+                            {{ form2.discription_seasionone }}
+                            {% if form2.discription_seasionone.errors %}
+                                {{ form2.discription_seasionone.error_messages }}
+                            {% endif %}
+                            <p class="mb-5">
+                            <label for="file-upload_2" class="custom-file-edit" id="label-file-upload_2" style="background-image: url('{% if form1.image2.value %}{{ form1.image2.value.url }}{% endif %}')">
+                                    Add Photo For Section 2
+                                </label>
+
+                                {{ form1.image2 }}
+                                {% if form1.image2.errors %}
+                                    {{ form1.image2.errors }}
+                                {% endif %}
+                            </p>
+                        </div>
+{#                        <!-- ///////////////////////////////////////////////// -->#}
+{##}
+{##}
+{#                        <!-- ///////////////////////////////////////////////// -->#}
+                        <hr>
+                        <a class="btn py-3 px-5 w-100" onclick="show_section3()">Add Section 3 </a>
+
+                        <div class="section_body_3">
+                            <h2 class="mb-3 mt-5 text-center">Section 3 </h2>
+                            {{ form2.title_seasiontwo }}
+                            {% if form2.title_seasiontwo.errors %}
+                                {{ form2.title_seasiontwo.error_messages }}
+                            {% endif %}
+                            {{ form2.discription_seasiontwo }}
+                            {% if form2.discription_seasiontwo.errors %}
+                                {{ form2.discription_seasiontwo.error_messages }}
+                            {% endif %}
+                            <p class="mb-5">
+                            <label for="file-upload_3" class="custom-file-edit" id="label-file-upload_3" style="background-image: url('{% if form1.image3.value %}{{ form1.image3.value.url }}{% endif %}')">
+                                    Add Photo For Section 3
+                                </label>
+                                {{  form1.image3 }}
+                                {% if form1.image3.errors %}
+                                    {{ form1.image3.errors }}
+                                {% endif %}
+                            </p>
+                        </div>
+{##}
+{#                        <!-- ///////////////////////////////////////////////// -->#}
+{##}
+{##}
+{#                        <!-- ///////////////////////////////////////////////// -->#}
+                        <hr>
+                        <a class="btn  py-3 px-5 w-100" onclick="show_section4()">Add Section 4 </a>
+
+                        <div class="section_body_4">
+                            <h2 class="mb-3 mt-5 text-center">Section 4 </h2>
+                            {{ form2.title_seasiontree }}
+                            {% if form2.title_seasiontree.errors %}
+                                {{ form2.title_seasiontree.error_messages }}
+                            {% endif %}
+                            {{ form2.discription_seasiontree }}
+                            {% if form2.discription_seasiontree.errors %}
+                                {{ form2.discription_seasiontree.error_messages }}
+                            {% endif %}
+                            <p class="mb-5">
+                            <label for="file-upload_4" class="custom-file-edit" id="label-file-upload_4" style="background-image: url('{% if form1.image4.value %}{{ form1.image4.value.url }}{% endif %}')">
+                                    Add Photo For Section 4
+                                </label>
+                                {{ form1.image4 }}
+                                {% if form1.image4.errors %}
+                                    {{ form1.image4.errors }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <hr>
+
+{#                        <!-- ///////////////////////////////////////////////// -->#}
+
+                    </div>
+                    <button class="btn btn-primary py-3 px-5 w-100" type="submit">Edit Blog</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block footer_ref %}
+<script src="{% static 'js/custom_for_edit.js' %}"></script>
+{% endblock %}

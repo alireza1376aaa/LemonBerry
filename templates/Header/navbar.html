@@ -1,0 +1,54 @@
+<nav class="navbar px-md-0 navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <img class="logo_footer" src="{{ setting.Logo_web.url }}" alt="mylogo" height="100px">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item {% if request.resolver_match.url_name == 'Home_page' %}active{% endif %}"><a
+                        href="{% url 'Home_page' %}" class="nav-link">Home</a></li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'list_weblog' %}active{% endif %}"><a
+                        href="{% url 'list_weblog' category='weball' %}" class="nav-link">Articles</a>
+                </li>
+                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item {% if request.resolver_match.url_name == 'make_weblog' %}active{% endif %}"><a
+                            href="{% url 'make_weblog' %}" class="nav-link">Add Articles</a>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Profile</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item {% if request.resolver_match.url_name == 'Edit_Profile' %}active{% endif %}"
+                               href="{% url 'Edit_Profile' %}">Your Profile</a>
+                            <a class="dropdown-item {% if request.resolver_match.url_name == 'Log_out' %}active{% endif %}"
+                               href="{% url 'Log_out' %}">Log_Out</a>
+                                {% if request.user.is_superuser %}
+                                     <a class="dropdown-item {% if request.resolver_match.url_name == 'adminpanel' %}active{% endif %}"
+                                   href="{% url 'adminpanel' %}">Admin Panel</a>
+                                {% endif %}
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Account</a>
+                        <div class="dropdown-menu ">
+                            <a class="dropdown-item {% if request.resolver_match.url_name == 'Register' %}active{% endif %}"
+                               href="{% url 'Register' %}">Register</a>
+                            <a class="dropdown-item {% if request.resolver_match.url_name == 'log_in' %}active{% endif %}"
+                               href="{% url 'log_in' %}">Log_in</a>
+                        </div>
+                    </li>
+                {% endif %}
+                <li class="nav-item {% if request.resolver_match.url_name == 'About_us_page' %}active{% endif %}"><a
+                        href="{% url 'About_us_page' %}" class="nav-link">Team</a></li>
+
+                <li class="nav-item {% if request.resolver_match.url_name == 'Contact_us_page' %}active{% endif %}"><a
+                        href="{% url 'Contact_us_page' %}" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
